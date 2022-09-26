@@ -28,8 +28,8 @@ const recipeSchema = new Schema({
   duration: { type: Number, min: 0 },
   creator: { type: String },
   created: { type: Date, default: Date.now },
-  likes: { type: Number, default: 0 },
-  dislikes: { type: Number, default: 0 },
+  likes: { type: Number, default: 0, min: 0 },
+  dislikes: { type: Number, default: 0, min: 0 },
 });
 
 const Recipe = mongoose.model("Recipe", recipeSchema);

@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const ObjectId = require("mongodb").ObjectId;
 
 const UserModel = require("../models/User.model");
 const RecipeModel = require("../models/Recipe.model");
@@ -167,16 +166,16 @@ router.delete("/delete/:idUser", async (req, res) => {
   try {
     const { idUser } = req.params;
 
-    const userLikes = await UserModel.find(
+    const userLikes = await UserModel.findOne(
       {
-        _id: new ObjectId(`${idUser}`),
+        _id: idUser,
       },
       {
         favorites: 1,
       }
     );
 
-    userLikes[0].favorites.forEach(async (likedRecipe) => {
+    userLikes.favorites.forEach(async (likedRecipe) => {
       await RecipeModel.findByIdAndUpdate(
         likedRecipe,
         {
@@ -186,16 +185,16 @@ router.delete("/delete/:idUser", async (req, res) => {
       );
     });
 
-    const userDislikes = await UserModel.find(
+    const userDislikes = await UserModel.findOne(
       {
-        _id: new ObjectId(`${idUser}`),
+        _id: idUser,
       },
       {
         dislikes: 1,
       }
     );
 
-    userDislikes[0].dislikes.forEach(async (dislikedRecipe) => {
+    userDislikes.dislikes.forEach(async (dislikedRecipe) => {
       await RecipeModel.findByIdAndUpdate(
         dislikedRecipe,
         {
@@ -206,7 +205,6 @@ router.delete("/delete/:idUser", async (req, res) => {
     });
 
     const deletedUser = await UserModel.findByIdAndDelete(idUser);
-    8;
 
     return res.status(200).json(deletedUser);
   } catch (error) {
