@@ -176,7 +176,7 @@ router.delete("/delete/:idUser", async (req, res) => {
       }
     );
 
-    userLikes.forEach(async (likedRecipe) => {
+    userLikes[0].favorites.forEach(async (likedRecipe) => {
       await RecipeModel.findByIdAndUpdate(
         likedRecipe,
         {
@@ -195,7 +195,7 @@ router.delete("/delete/:idUser", async (req, res) => {
       }
     );
 
-    userDislikes.forEach(async (dislikedRecipe) => {
+    userDislikes[0].dislikes.forEach(async (dislikedRecipe) => {
       await RecipeModel.findByIdAndUpdate(
         dislikedRecipe,
         {
@@ -206,6 +206,7 @@ router.delete("/delete/:idUser", async (req, res) => {
     });
 
     const deletedUser = await UserModel.findByIdAndDelete(idUser);
+    8;
 
     return res.status(200).json(deletedUser);
   } catch (error) {
