@@ -94,4 +94,22 @@ router.delete("/delete/:idRecipe", async (req, res) => {
   }
 });
 
+router.put("/edit/:idRecipe", async (req, res) => {
+  try {
+    const { idRecipe } = req.params;
+
+    const editedRecipe = await RecipeModel.findByIdAndUpdate(
+      idRecipe,
+      {
+        ...req.body,
+      },
+      { new: true, runValidators: true }
+    );
+    return res.status(200).json(editedRecipe);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json(error);
+  }
+});
+
 module.exports = router;
