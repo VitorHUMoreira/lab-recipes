@@ -13,6 +13,7 @@ const clientSchema = new Schema({
   role: { type: String, enum: ["USER", "ADMIN"], default: "USER" },
   favorites: [{ type: Schema.Types.ObjectId, ref: "Recipe" }],
   dislikes: [{ type: Schema.Types.ObjectId, ref: "Recipe" }],
+  emailConfirm: { type: Boolean, default: false },
 });
 
 const ClientModel = mongoose.model("Client", clientSchema);

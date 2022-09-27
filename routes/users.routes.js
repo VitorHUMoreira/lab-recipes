@@ -11,10 +11,20 @@ const generateToken = require("../config/jwt.config");
 const isAuth = require("../middlewares/isAuth");
 const attachCurrentUser = require("../middlewares/attachCurrentUser");
 const isAdmin = require("../middlewares/isAdmin");
+const nodemailer = require("nodemailer");
+
+let transporter = nodemailer.createTransport({
+  service: "Hotmail",
+  auth: {
+    secure: false,
+    user: "lab-recipes@hotmail.com",
+    pass: process.env.MAIL_PASSWORD,
+  },
+});
 
 router.post("/sign-up", async (req, res) => {
   try {
-    const { password } = req.body;
+    const { email, password } = req.body;
 
     if (
       !password ||
@@ -35,7 +45,37 @@ router.post("/sign-up", async (req, res) => {
 
     delete newUser._doc.passwordHash;
 
+    const mailOptions = {
+      from: '"🔪 Lab Recipes Mailer 📧" <lab-recipes@hotmail.com>',
+      to: email,
+      subject: "Ative sua conta do Lab Recipes",
+      html: `<h2>Bem vindo ao Lab Recipes ${newUser.name}</h2><h5>Clique <a href=http://localhost:4000/users/activate-account/${newUser._id} target="_blank">AQUI</a> para ativar sua conta<h5>`,
+    };
+
+    await transporter.sendMail(mailOptions);
+
     return res.status(201).json(newUser);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json(error);
+  }
+});
+
+router.get("/activate-account/:idUser", async (req, res) => {
+  try {
+    const { idUser } = req.params;
+
+    const user = await UserModel.findById(idUser);
+
+    if (!user) {
+      return res.status(400).json("Erro na ativação da conta");
+    }
+
+    await UserModel.findByIdAndUpdate(idUser, {
+      emailConfirm: true,
+    });
+
+    return res.status(200).json();
   } catch (error) {
     console.log(error);
     return res.status(400).json(error);

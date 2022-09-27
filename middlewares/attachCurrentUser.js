@@ -8,6 +8,10 @@ async function attachCurrentUser(req, res, next) {
       passwordHash: 0,
     });
 
+    if (!user.emailConfirm) {
+      return res.status(400).json({ message: "Usuário não ativado" });
+    }
+
     req.currentUser = user;
 
     next();
