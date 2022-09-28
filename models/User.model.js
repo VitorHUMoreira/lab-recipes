@@ -16,7 +16,8 @@ const clientSchema = new Schema({
   emailConfirm: { type: Boolean, default: false },
   picture: {
     type: String,
-    default: "https://cdn-icons-png.flaticon.com/512/1057/1057231.png",
+    default:
+      "https://www.pngkey.com/png/full/73-730477_first-name-profile-image-placeholder-png.png",
   },
 });
 
