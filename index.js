@@ -15,6 +15,9 @@ app.use("/users", UsersRoute);
 const RecipesRoute = require("./routes/recipes.routes");
 app.use("/recipes", RecipesRoute);
 
+const UploadImgRoute = require("./routes/uploadImg.routes");
+app.use("/", UploadImgRoute);
+
 app.listen(+process.env.PORT, () => {
   console.log("Servidor funcionando na porta:", process.env.PORT);
 });

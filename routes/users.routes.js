@@ -68,14 +68,14 @@ router.get("/activate-account/:idUser", async (req, res) => {
     const user = await UserModel.findById(idUser);
 
     if (!user) {
-      return res.status(400).json("Erro na ativação da conta");
+      return res.send("Erro na ativação da conta");
     }
 
     await UserModel.findByIdAndUpdate(idUser, {
       emailConfirm: true,
     });
 
-    return res.status(200).json();
+    res.send(`<h1>Usuário ativado</h1>`);
   } catch (error) {
     console.log(error);
     return res.status(400).json(error);

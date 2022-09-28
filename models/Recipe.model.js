@@ -30,6 +30,11 @@ const recipeSchema = new Schema({
   created: { type: Date, default: Date.now },
   likes: { type: Number, default: 0, min: 0 },
   dislikes: { type: Number, default: 0, min: 0 },
+  picture: {
+    type: String,
+    default:
+      "https://www.foodiesfeed.com/wp-content/uploads/2021/11/fresh-beef-burger-takeaway.jpg",
+  },
 });
 
 const Recipe = mongoose.model("Recipe", recipeSchema);

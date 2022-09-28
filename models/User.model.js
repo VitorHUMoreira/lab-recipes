@@ -14,6 +14,10 @@ const clientSchema = new Schema({
   favorites: [{ type: Schema.Types.ObjectId, ref: "Recipe" }],
   dislikes: [{ type: Schema.Types.ObjectId, ref: "Recipe" }],
   emailConfirm: { type: Boolean, default: false },
+  picture: {
+    type: String,
+    default: "https://cdn-icons-png.flaticon.com/512/1057/1057231.png",
+  },
 });
 
 const ClientModel = mongoose.model("Client", clientSchema);
