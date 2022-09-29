@@ -49,7 +49,7 @@ router.post("/sign-up", async (req, res) => {
       from: '"🔪 Lab Recipes Mailer" <lab-recipes@hotmail.com>',
       to: email,
       subject: "Ative sua conta do Lab Recipes",
-      html: `<h2>Bem vindo ao Lab Recipes ${newUser.name}</h2><h5>Clique <a href=http://localhost:4000/users/activate-account/${newUser._id} target="_blank">AQUI</a> para ativar sua conta<h5>`,
+      html: `<h2>Bem vindo ao Lab Recipes ${newUser.name}</h2><h5>Clique <a href=http://localhost:3000/activate-account/${newUser._id} target="_blank">AQUI</a> para ativar sua conta<h5>`,
     };
 
     await transporter.sendMail(mailOptions);

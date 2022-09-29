@@ -21,10 +21,6 @@ const recipeSchema = new Schema({
       "other",
     ],
   },
-  image: {
-    type: String,
-    default: "https://images.media-allrecipes.com/images/75131.jpg",
-  },
   duration: { type: Number, min: 0 },
   creator: { type: String },
   created: { type: Date, default: Date.now },
@@ -32,8 +28,7 @@ const recipeSchema = new Schema({
   dislikes: { type: Number, default: 0, min: 0 },
   picture: {
     type: String,
-    default:
-      "https://www.foodiesfeed.com/wp-content/uploads/2021/11/fresh-beef-burger-takeaway.jpg",
+    default: "https://images.media-allrecipes.com/images/75131.jpg",
   },
 });
 
